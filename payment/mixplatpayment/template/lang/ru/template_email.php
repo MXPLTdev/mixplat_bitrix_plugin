@@ -1,0 +1,3 @@
+<?php
+$MESS["SALE_HANDLERS_PAY_SYSTEM_YANDEX_CHECKOUT_NEED_EMAIL"] = "Для выставления счёта необходимо указать email";
+$MESS["SALE_HANDLERS_PAY_SYSTEM_YANDEX_CHECKOUT_BUTTON_NEXT"] = "Далее";
