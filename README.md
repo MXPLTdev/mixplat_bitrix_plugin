@@ -1,4 +1,4 @@
-modulbank-bitrix
+Mixplat bitrix
 ===================
 
 Bitrix-модуль для приёма оплаты с пластиковых карт через MIXPLAT
