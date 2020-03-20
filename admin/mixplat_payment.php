@@ -87,7 +87,7 @@ while ($arOrder = $dbOrderList->NavNext(true, "f_")) {
 
     $row->AddField("order_id", $idTmp);
     $currentStatus = $arOrder["status"];
-    if ($arOrder["status"] == 'pending') {
+    if (in_array($arOrder["status"], array( 'pending', 'failure'))) {
         $currentStatus = $arOrder["status_extended"];
     }
     $status = GetMessage('MIXPLAT.PAYMENT_STATUS_' . strtoupper($currentStatus));
