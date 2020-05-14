@@ -6,7 +6,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/sale/general/admin_too
 
 IncludeModuleLangFile(__FILE__);
 
-$saleModulePermissions = $APPLICATION->GetGroupRight("sale");
+$saleModulePermissions = $APPLICATION->GetGroupRight("mixplat.payment");
 if ($saleModulePermissions == "D") {
     $APPLICATION->AuthForm(GetMessage("ACCESS_DENIED"));
 }
