@@ -64,6 +64,16 @@ $data = array(
 				),
 			),
 		),
+		"DESCRIPTION"              => array(
+			"NAME"        => Loc::getMessage("MIXPLAT.PAYMENT_TRANSACTION_DESCRIPTION"),
+			"DESCRIPTION" => Loc::getMessage("MIXPLAT.PAYMENT_TRANSACTION_DESCRIPTION_DESC"),
+			'SORT'        => 450,
+			'GROUP'       => Loc::getMessage("MIXPLAT.PAYMENT_CONNECT_SETTINGS"),
+			'DEFAULT'     => array(
+				'PROVIDER_KEY'   => 'VALUE',
+				'PROVIDER_VALUE' => Loc::getMessage("MIXPLAT.PAYMENT_DESCRIPTION_TEMPLATE"),
+			),
+		),
 		"FILTER_IPS"                      => array(
 			"NAME"        => Loc::getMessage("MIXPLAT.PAYMENT_FILTER_IPS"),
 			"DESCRIPTION" => Loc::getMessage("MIXPLAT.PAYMENT_FILTER_IPS_DESC"),

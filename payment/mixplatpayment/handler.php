@@ -402,7 +402,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 				$order->getId(),
 				($userEmail) ? $userEmail->getValue() : '',
 			],
-			Localization\Loc::getMessage("MIXPLAT.PAYMENT_ORDER_DESCRIPTION")
+			$this->getBusinessValue($payment, 'DESCRIPTION')
 		);
 
 		return substr($description, 0, 128);

@@ -64,10 +64,10 @@ $MESS["MIXPLAT.PAYMENT_OPTION_SUBJECT_ANOTHER"]               = "иной пре
 $MESS["MIXPLAT.PAYMENT_OPTIONS_EMAIL_USER"]     = "E-mail";
 $MESS["MIXPLAT.PAYMENT_OPTIONS_ORDER_NUMBER"]   = "Номер заказа";
 
-$MESS["MIXPLAT.PAYMENT_HOLD"]            = "Двухстадийные платежи";
+$MESS["MIXPLAT.PAYMENT_HOLD"]            = "Способ транзакции";
 $MESS["MIXPLAT.PAYMENT_HOLD_DESC"]       = "Деньги будут блокироваться на карте покупателя и оплату необходимо будет подтверждать иначе будут возвращены на карту";
-$MESS["MIXPLAT.PAYMENT_OPTION_HOLD_YES"] = "Да";
-$MESS["MIXPLAT.PAYMENT_OPTION_HOLD_NO"]  = "Нет";
+$MESS["MIXPLAT.PAYMENT_OPTION_HOLD_YES"] = "Двухстадийная";
+$MESS["MIXPLAT.PAYMENT_OPTION_HOLD_NO"]  = "Одностадийная";
 
 $MESS["MIXPLAT.PAYMENT_RECEIPT"] = "Печать чека";
 $MESS["MIXPLAT.PAYMENT_OPTION_RECEIPT_YES"] = "Да";
@@ -79,9 +79,9 @@ $MESS["MIXPLAT.PAYMENT_OPTION_TEST_NO"]  = "Нет";
 $MESS["MIXPLAT.PAYMENT_OPTION_FILTER_IPS_YES"] = "Да";
 $MESS["MIXPLAT.PAYMENT_OPTION_FILTER_IPS_NO"]  = "Нет";
 
-$MESS["MIXPLAT.PAYMENT_PAYMENT_DESCRIPTION"]          = "Описание транзакции";
-$MESS["MIXPLAT.PAYMENT_PAYMENT_DESCRIPTION_DESC"]     = "Описание транзакции (не более 128 символов), которое вы увидите в личном кабинете Яндекс.Кассы. Текст может содержать метки: #PAYMENT_ID# - ID оплаты, #ORDER_ID# - ID заказа, #PAYMENT_NUMBER# - номер оплаты, #ORDER_NUMBER# - номер заказа, #USER_EMAIL# - Email покупателя";
-$MESS["MIXPLAT.PAYMENT_PAYMENT_DESCRIPTION_TEMPLATE"] = "Оплата №#PAYMENT_NUMBER# заказа №#ORDER_NUMBER# для #USER_EMAIL#";
+$MESS["MIXPLAT.PAYMENT_TRANSACTION_DESCRIPTION"]          = "Описание транзакции";
+$MESS["MIXPLAT.PAYMENT_TRANSACTION_DESCRIPTION_DESC"]     = "Описание транзакции, которое вы увидите в личном кабинете и покупатель на станице оплаты. Текст может содержать метки: #PAYMENT_ID# - ID оплаты, #ORDER_ID# - ID заказа, #PAYMENT_NUMBER# - номер оплаты, #ORDER_NUMBER# - номер заказа, #USER_EMAIL# - Email покупателя";
+$MESS["MIXPLAT.PAYMENT_DESCRIPTION_TEMPLATE"] = "Оплата №#PAYMENT_NUMBER# заказа №#ORDER_NUMBER#";
 
 $MESS["MIXPLAT.PAYMENT_CONNECT_SETTINGS"]  = "Настройки подключения";
 $MESS["MIXPLAT.PAYMENT_RECEIPT_SETTINGS"]  = "Настройки кассы";

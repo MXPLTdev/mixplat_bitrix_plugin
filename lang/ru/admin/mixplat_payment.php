@@ -20,6 +20,7 @@ $MESS['MIXPLAT.PAYMENT_STATUS_PENDING_PROCESSING'] = 'Платёж обраба�
 $MESS['MIXPLAT.PAYMENT_STATUS_PENDING_CHECK'] = 'Платёж обрабатывается: Ожидается ответ ТСП на CHECK-запрос';
 $MESS['MIXPLAT.PAYMENT_STATUS_PENDING_AUTHORIZED'] = 'Платёж авторизован';
 $MESS['MIXPLAT.PAYMENT_STATUS_FAILURE_NOT_ENOUGH_MONEY'] = 'Платёж неуспешен: Недостаточно средств у плательщика';
+$MESS['MIXPLAT.PAYMENT_STATUS_FAILURE_NO_MONEY'] = 'Платёж неуспешен: Недостаточно средств у плательщика';
 $MESS['MIXPLAT.PAYMENT_STATUS_FAILURE_GATE_ERROR'] = 'Платёж неуспешен: Ошибка платёжного шлюза';
 $MESS['MIXPLAT.PAYMENT_STATUS_FAILURE_CANCELED_BY_USER'] = 'Платёж неуспешен: Отменён плательщиком';
 $MESS['MIXPLAT.PAYMENT_STATUS_FAILURE_CANCELED_BY_MERCHANT'] = 'Платёж неуспешен: Отменён ТСП';

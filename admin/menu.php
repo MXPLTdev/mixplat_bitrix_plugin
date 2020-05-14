@@ -2,7 +2,7 @@
 
 IncludeModuleLangFile(__FILE__);
 $res = $DB->Query("SHOW TABLES LIKE 'mixplat_payment'");
-if ($res->SelectedRowsCount() && $APPLICATION->GetGroupRight("mixplat_payment") != "D") {
+if ($res->SelectedRowsCount() && $APPLICATION->GetGroupRight("mixplat.payment") != "D") {
 	$aMenu = array(
 		"parent_menu" => "global_menu_store",
 		"section" => "mixplat_payment",
