@@ -340,7 +340,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 
 	private function convertVatId($vatId)
 	{
-		$ndsArr = CCatalogVat::GetByID($vatId)->Fetch();
+		$ndsArr = \CCatalogVat::GetByID($vatId)->Fetch();
 		if ($ndsArr['NAME'] == GetMessage('MIXPLAT.PAYMENT_NO_NSD')) {
 			$taxId = 'none';
 		} else {
