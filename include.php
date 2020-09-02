@@ -179,13 +179,13 @@ class CMixplatPayment {
 					$payment->setFields($refResult->getPsData());
 					break;
 			}
-			$r = $payment->save();
+			$r = $order->getPaymentCollection()->save();
 			if (!$r->isSuccess())
 			{
 				$result->addErrors($r->getErrors());
 				return $result;
 			}
-			$order->refreshData();
+			//$order->refreshData();
 			$order->save();
 			return $result;
 
