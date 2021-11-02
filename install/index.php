@@ -85,6 +85,7 @@ Class mixplat_payment extends CModule
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/mixplat.payment/install/sale_payment/mixplatpayment/template", $_SERVER["DOCUMENT_ROOT"]."/bitrix/php_interface/include/sale_payment/mixplatpayment/template");
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/mixplat.payment/install/tools/", $_SERVER["DOCUMENT_ROOT"]."/bitrix/tools/");
 		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".$this->MODULE_ID."/install/themes/.default", $_SERVER["DOCUMENT_ROOT"]."/bitrix/themes/.default", true, true);
+		CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".$this->MODULE_ID."/install/themes/.default/mixplat", $_SERVER["DOCUMENT_ROOT"]."/bitrix/themes/.default/mixplat", true, true);
         CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".$this->MODULE_ID."/install/themes/.default/icons", $_SERVER["DOCUMENT_ROOT"]."/bitrix/themes/icons", true, true);
         CopyDirFiles($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/".$this->MODULE_ID."/install/admin/mixplat_payment.php", $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin/mixplat_payment.php");
 		return true;

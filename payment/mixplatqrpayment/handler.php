@@ -24,11 +24,13 @@ if (!(interface_exists("Sale\Handlers\PaySystem\MixplatHandlerProxy"))) {
 	}
 }
 
+
+
 /**
  * Class MixplatPaymentHandler
  * @package Sale\Handlers\PaySystem
  */
-class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatHandlerProxy
+class MixplatQrPaymentHandler extends PaySystem\ServiceHandler implements MixplatHandlerProxy
 {
 
 	const URL = 'https://api.mixplat.com';
@@ -54,6 +56,17 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 	{
 		if ($request === null) {
 			$request = Main\Context::getCurrent()->getRequest();
+		}
+
+		if ($request->get('template') == 'qr') {
+			$template = "template_qr";
+			$params = array(
+				'SUM'      => PriceMaths::roundPrecision($payment->getSum()),
+			);
+			$this->setExtraParams($params);
+
+			$showTemplateResult = $this->showTemplate($payment, $template);
+			exit();
 		}
 
 		$result = $this->initiatePayInternal($payment, $request);
@@ -86,7 +99,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 
 		$result = new PaySystem\ServiceResult();
 
-		$createResult = $this->createPayment($payment, $request);
+		/*$createResult = $this->createPayment($payment, $request);
 		if (!$createResult->isSuccess()) {
 			$result->addErrors($createResult->getErrors());
 			return $result;
@@ -98,9 +111,11 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 			'PS_INVOICE_ID'   => $paymentData['payment_id'],
 			'PAY_VOUCHER_NUM' => $this->email,
 		));
+*/
+		$orderNumber = $this->getBusinessValue($payment, 'ORDER_NUMBER');
 
 		$params = array(
-			'URL'      => $paymentData['redirect_url'],
+			'URL'      => "/personal/order/payment/?template=qr&ORDER_ID=$orderNumber&PAYMENT_ID=$orderNumber/".$payment->getId(),
 			'CURRENCY' => $payment->getField('CURRENCY'),
 			'SUM'      => PriceMaths::roundPrecision($payment->getSum()),
 		);
@@ -344,7 +359,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 	private function convertVatId($vatId)
 	{
 		$ndsArr = \CCatalogVat::GetByID($vatId)->Fetch();
-		if ($ndsArr['NAME'] == GetMessage('MIXPLAT.PAYMENT_NO_NSD')) {
+		if ($ndsArr['NAME'] == GetMessage('MIXPLAT.PAYMENT_QR_NO_NSD')) {
 			$taxId = 'none';
 		} else {
 			$rate        = intval($ndsArr['RATE']);
@@ -489,14 +504,14 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 		}
 
 		if (!$this->isCorrectRequestSource()) {
-			return $result->addError(new Main\Error(Localization\Loc::getMessage('MIXPLAT.PAYMENT_INCORRECT_SOURCE')));
+			return $result->addError(new Main\Error(Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_INCORRECT_SOURCE')));
 		}
 
 		$data = \CMixplatPayment::JSdecode($inputStream);
 		if ($data !== false) {
 			$response = $data;
 			if (!$this->checkRequestSignature($payment, $data)) {
-				return $result->addError(new Main\Error(Localization\Loc::getMessage('MIXPLAT.PAYMENT_WRONG_SIGNATURE')));
+				return $result->addError(new Main\Error(Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_WRONG_SIGNATURE')));
 			}
 			\CMixplatPayment::updateTransaction($payment, $response);
 
@@ -506,7 +521,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 					|| $response['status_extended'] === 'pending_authorized'
 				) && !$payment->isPaid()
 			) {
-				$description = Localization\Loc::getMessage('MIXPLAT.PAYMENT_TRANSACTION') . $response['payment_id'];
+				$description = Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_TRANSACTION') . $response['payment_id'];
 				$fields      = array(
 					"PS_STATUS_CODE"        => substr($response['status'], 0, 5),
 					"PS_STATUS_DESCRIPTION" => $description,
@@ -521,7 +536,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 					$fields["PS_STATUS"] = 'Y';
 					$result->setOperationType(PaySystem\ServiceResult::MONEY_COMING);
 				} else {
-					$error = Localization\Loc::getMessage('MIXPLAT.PAYMENT_ERROR_SUM');
+					$error = Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_ERROR_SUM');
 					$fields['PS_STATUS_DESCRIPTION'] .= ' ' . $error;
 					$result->addError(new Main\Error($error));
 				}
@@ -529,7 +544,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 				$result->setPsData($fields);
 			}
 		} else {
-			$result->addError(new Main\Error('MIXPLAT.PAYMENT_ERROR_QUERY'));
+			$result->addError(new Main\Error('MIXPLAT.PAYMENT_QR_ERROR_QUERY'));
 		}
 
 		if (!$result->isSuccess()) {
@@ -613,11 +628,11 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 	public static function getHandlerModeList()
 	{
 		return array(
-			''                            => Localization\Loc::getMessage('MIXPLAT.PAYMENT_METHOD_ALL'),
-			static::PAYMENT_METHOD_MOBILE => Localization\Loc::getMessage('MIXPLAT.PAYMENT_METHOD_MOBILE'),
-			static::PAYMENT_METHOD_CARD   => Localization\Loc::getMessage('MIXPLAT.PAYMENT_METHOD_CARD'),
-			static::PAYMENT_METHOD_WALLET => Localization\Loc::getMessage('MIXPLAT.PAYMENT_METHOD_WALLET'),
-			static::PAYMENT_METHOD_BANK   => Localization\Loc::getMessage('MIXPLAT.PAYMENT_METHOD_BANK'),
+			''                            => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_METHOD_ALL'),
+			static::PAYMENT_METHOD_MOBILE => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_METHOD_MOBILE'),
+			static::PAYMENT_METHOD_CARD   => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_METHOD_CARD'),
+			static::PAYMENT_METHOD_WALLET => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_METHOD_WALLET'),
+			static::PAYMENT_METHOD_BANK   => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_METHOD_BANK'),
 		);
 	}
 
@@ -772,7 +787,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 			$result->setOperationType(PaySystem\ServiceResult::MONEY_LEAVING);
 			$fields = array(
 				"PS_STATUS_CODE"        => substr("refund", 0, 5),
-				"PS_STATUS_DESCRIPTION" => Localization\Loc::getMessage('MIXPLAT.PAYMENT_CHECKOUT_PAYMENT_REFUND') . ' ' . $refundableSum,
+				"PS_STATUS_DESCRIPTION" => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_CHECKOUT_PAYMENT_REFUND') . ' ' . $refundableSum,
 				"PS_RESPONSE_DATE"      => new Main\Type\DateTime(),
 			);
 			$result->setPsData($fields);
@@ -802,7 +817,7 @@ class MixplatPaymentHandler extends PaySystem\ServiceHandler implements MixplatH
 		}
 		$fields = array(
 			"PS_STATUS_CODE"        => substr("canceled", 0, 5),
-			"PS_STATUS_DESCRIPTION" => Localization\Loc::getMessage('MIXPLAT.PAYMENT_ERROR_PAYMENT_CANCELED'),
+			"PS_STATUS_DESCRIPTION" => Localization\Loc::getMessage('MIXPLAT.PAYMENT_QR_ERROR_PAYMENT_CANCELED'),
 			"PS_RESPONSE_DATE"      => new Main\Type\DateTime(),
 			"PS_STATUS"             => 'N',
 		);
